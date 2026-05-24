@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MURAQBA — Brand Audit Roadmap</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root{
+  --dark:#1C1A15;
+  --cream:#F7F0E6;
+  --sand:#F6E7D1;
+  --gold:#BE8E6F;
+  --sage:#9D9883;
+  --linen:#C8BFAE;
+  --mist:#E8E9E1;
+  --border:#E2CCB0;
+  --text:#28251E;
+  --sub:#5C5848;
+  --sidebar:260px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+
+/* ── PRINT ── */
+@media print{
+  .sidebar,.top-bar,.hamburger,.mob-nav-toggle{display:none!important;}
+  .main{margin:0!important;padding:0!important;}
+  .section{display:block!important;page-break-before:always;}
+  .section:first-child{page-break-before:avoid;}
+  .section-inner{padding:24px!important;}
+  .print-btn,.save-btn{display:none!important;}
+}
+
+/* ── LAYOUT ── */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.tb-logo{font-family:'Cormorant Garamond',serif;font-size:16px;color:#fff;letter-spacing:0.15em;}
+.tb-score-wrap{display:flex;align-items:center;gap:10px;}
+.tb-score-label{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;}
+.tb-score{font-size:18px;font-weight:700;color:var(--gold);min-width:44px;}
+.tb-btns{display:flex;gap:8px;}
+.tb-btn{padding:6px 14px;border-radius:4px;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif;border:none;transition:all .15s;}
+.tb-btn.outline{background:transparent;color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.12);}
+.tb-btn.accent{background:var(--gold);color:#fff;}
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:#fff;font-size:18px;padding:4px;}
+
+.sidebar{position:fixed;top:52px;left:0;bottom:0;width:var(--sidebar);background:var(--dark);overflow-y:auto;z-index:200;border-right:1px solid rgba(255,255,255,0.05);}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.07);border-radius:2px;}
+.nav-section{padding:14px 16px 6px;}
+.nav-section-label{font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:6px;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:5px;cursor:pointer;transition:all .15s;margin-bottom:1px;}
+.nav-item:hover{background:rgba(255,255,255,0.05);}
+.nav-item.active{background:rgba(190,142,111,0.12);border-left:2px solid var(--gold);}
+.nav-num{font-size:8px;color:var(--gold);opacity:0.6;width:16px;flex-shrink:0;}
+.nav-text{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.3;}
+.nav-item.active .nav-text{color:rgba(255,255,255,0.85);}
+.nav-done{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:transparent;display:flex;align-items:center;justify-content:center;margin-left:auto;font-size:8px;color:var(--gold);flex-shrink:0;transition:.2s;}
+.nav-done.complete{background:rgba(190,142,111,0.2);border-color:var(--gold);}
+
+.main{margin-left:var(--sidebar);padding-top:52px;min-height:100vh;}
+
+/* ── SECTIONS ── */
+.section{display:none;min-height:calc(100vh - 52px);}
+.section.active{display:block;}
+.section-inner{padding:36px 40px;max-width:860px;}
+
+/* HEADERS */
+.sec-eyebrow{font-size:9px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,42px);font-weight:400;color:var(--dark);line-height:1.1;margin-bottom:6px;}
+.sec-bar{width:36px;height:2px;background:var(--gold);border-radius:1px;margin-bottom:14px;}
+.sec-desc{font-size:13px;color:var(--sub);line-height:1.8;max-width:600px;margin-bottom:28px;}
+
+/* INTRO BANNER */
+.intro-banner{background:var(--dark);border-radius:10px;padding:28px 30px;margin-bottom:24px;position:relative;overflow:hidden;}
+.intro-banner::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(190,142,111,0.12) 0%,transparent 70%);}
+.intro-banner h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:#fff;margin-bottom:8px;}
+.intro-banner p{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.8;max-width:550px;}
+.intro-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.intro-pill{padding:4px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(190,142,111,0.2);border-radius:20px;font-size:10px;color:rgba(255,255,255,0.4);}
+
+/* CARDS */
+.cards{display:grid;gap:12px;margin-bottom:20px;}
+.cards.two{grid-template-columns:1fr 1fr;}
+.cards.three{grid-template-columns:1fr 1fr 1fr;}
+.card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px 20px;}
+.card.dark{background:var(--dark);border-color:rgba(255,255,255,0.06);}
+.card.accent{background:rgba(190,142,111,0.06);border-color:rgba(190,142,111,0.2);}
+.card-label{font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.card h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.card.dark h3{color:#fff;}
+.card p{font-size:12px;color:var(--sub);line-height:1.7;}
+.card.dark p{color:rgba(255,255,255,0.35);}
+.card-icon{font-size:22px;margin-bottom:10px;}
+
+/* CHECKLIST */
+.checklist-group{margin-bottom:22px;}
+.cg-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(226,204,176,0.4);}
+.check-item:last-child{border-bottom:none;}
+.ch-box{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--linen);cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:.15s;background:#fff;}
+.ch-box.checked{background:var(--gold);border-color:var(--gold);color:#fff;font-size:10px;}
+.ch-content{flex:1;}
+.ch-label{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px;cursor:pointer;line-height:1.4;}
+.ch-sub{font-size:11px;color:var(--sub);line-height:1.6;}
+.ch-tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:9px;font-weight:600;margin-left:6px;vertical-align:middle;}
+.ch-tag.critical{background:rgba(220,60,60,0.1);color:#c0392b;}
+.ch-tag.important{background:rgba(190,142,111,0.15);color:var(--gold);}
+.ch-tag.good{background:rgba(100,180,100,0.12);color:#2e7d32;}
+
+/* RATING */
+.rating-group{margin-bottom:20px;}
+.rating-item{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:10px 0;border-bottom:1px solid rgba(226,204,176,0.4);}
+.rating-item:last-child{border-bottom:none;}
+.rating-label{font-size:12px;font-weight:500;color:var(--text);}
+.rating-sub{font-size:10px;color:var(--sub);margin-top:2px;}
+.stars{display:flex;gap:4px;}
+.star{width:24px;height:24px;border-radius:4px;background:var(--mist);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--linen);transition:.12s;}
+.star:hover,.star.active{background:var(--gold);border-color:var(--gold);color:#fff;}
+
+/* NOTES */
+.notes-area{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:'Outfit',sans-serif;font-size:12px;color:var(--text);background:rgba(255,255,255,0.7);resize:vertical;min-height:70px;outline:none;transition:.15s;}
+.notes-area:focus{border-color:var(--gold);background:#fff;}
+.notes-label{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);margin-bottom:5px;display:block;}
+
+/* COMPETITOR TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+.comp-table th{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--sub);padding:8px 12px;background:var(--mist);border:1px solid var(--border);text-align:left;}
+.comp-table td{padding:9px 12px;border:1px solid var(--border);font-size:11px;color:var(--text);background:#fff;}
+.comp-table td input{border:none;outline:none;width:100%;font-size:11px;font-family:'Outfit',sans-serif;color:var(--text);background:transparent;}
+.comp-table tr:hover td{background:rgba(246,231,209,0.4);}
+
+/* SCORE BOX */
+.score-section{background:var(--dark);border-radius:10px;padding:24px 28px;margin-top:24px;}
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px;}
+.score-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:7px;padding:14px 12px;text-align:center;}
+.score-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--gold);}
+.score-lbl{font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;margin-top:3px;}
+
+/* INSIGHT BOX */
+.insight{display:flex;gap:12px;padding:14px 16px;border-radius:7px;margin-bottom:10px;}
+.insight.warn{background:rgba(220,60,60,0.06);border:1px solid rgba(220,60,60,0.15);}
+.insight.tip{background:rgba(190,142,111,0.07);border:1px solid rgba(190,142,111,0.18);}
+.insight.info{background:rgba(100,180,100,0.06);border:1px solid rgba(100,180,100,0.15);}
+.insight-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.insight h4{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.insight p{font-size:11px;color:var(--sub);line-height:1.65;}
+
+/* PHASE HEADER */
+.phase-bar{background:var(--gold);padding:10px 20px;display:flex;align-items:center;gap:10px;}
+.phase-bar span{font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+.phase-bar strong{font-size:11px;color:#fff;letter-spacing:0.05em;}
+
+/* FIELD ROW */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.field-wrap{display:flex;flex-direction:column;gap:4px;}
+.field-wrap label{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);}
+.field-input{border:1px solid var(--border);border-radius:5px;padding:8px 11px;font-size:12px;font-family:'Outfit',sans-serif;color:var(--text);background:rgba(255,255,255,0.7);outline:none;transition:.15s;}
+.field-input:focus{border-color:var(--gold);background:#fff;}
+.field-input.full{grid-column:1/-1;}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
+
+/* MOBILE */
+@media(max-width:800px){
+  :root{--sidebar:0px;}
+  .sidebar{transform:translateX(-100%);transition:.3s;width:260px;}
+  .sidebar.open{transform:translateX(0);}
+  .hamburger{display:block;}
+  .main{margin-left:0;}
+  .section-inner{padding:24px 18px;}
+  .cards.two,.cards.three{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+  .score-grid{grid-template-columns:1fr 1fr;}
+  .rating-item{grid-template-columns:1fr;gap:6px;}
+  .tb-btns .tb-btn.outline{display:none;}
+  .tb-score-label{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="tb-logo">MURAQBA</div>
+    <div style="width:1px;height:16px;background:rgba(255,255,255,0.08);"></div>
+    <div style="font-size:10px;color:rgba(255,255,255,0.22);letter-spacing:0.08em;">BRAND AUDIT TOOLKIT</div>
+  </div>
+  <div class="tb-score-wrap">
+    <div class="tb-score-label">AUDIT SCORE</div>
+    <div class="tb-score" id="totalScore">0%</div>
+  </div>
+  <div class="tb-btns">
+    <button class="tb-btn outline" onclick="window.print()">⬇ Export PDF</button>
+    <button class="tb-btn accent" onclick="resetAudit()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="nav-section">
+    <div class="nav-section-label">Getting Started</div>
+    <div class="nav-item active" onclick="showSection(0)"><div class="nav-num">00</div><div class="nav-text">Overview & How to Use</div><div class="nav-done" id="nd0"></div></div>
+    <div class="nav-item" onclick="showSection(1)"><div class="nav-num">01</div><div class="nav-text">Client Intake Form</div><div class="nav-done" id="nd1"></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Brand Foundation</div>
+    <div class="nav-item" onclick="showSection(2)"><div class="nav-num">02</div><div class="nav-text">Mission, Vision & Values</div><div class="nav-done" id="nd2"></div></div>
+    <div class="nav-item" onclick="showSection(3)"><div class="nav-num">03</div><div class="nav-text">Brand Identity & Visual System</div><div class="nav-done" id="nd3"></div></div>
+    <div class="nav-item" onclick="showSection(4)"><div class="nav-num">04</div><div class="nav-text">Brand Guidelines & Consistency</div><div class="nav-done" id="nd4"></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Presence & Voice</div>
+    <div class="nav-item" onclick="showSection(5)"><div class="nav-num">05</div><div class="nav-text">Brand Voice & Communication</div><div class="nav-done" id="nd5"></div></div>
+    <div class="nav-item" onclick="showSection(6)"><div class="nav-num">06</div><div class="nav-text">Digital Presence Audit</div><div class="nav-done" id="nd6"></div></div>
+    <div class="nav-item" onclick="showSection(7)"><div class="nav-num">07</div><div class="nav-text">Content & Marketing Effectiveness</div><div class="nav-done" id="nd7"></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">External World</div>
+    <div class="nav-item" onclick="showSection(8)"><div class="nav-num">08</div><div class="nav-text">External Perception & Reviews</div><div class="nav-done" id="nd8"></div></div>
+    <div class="nav-item" onclick="showSection(9)"><div class="nav-num">09</div><div class="nav-text">Brand Recognition & Loyalty</div><div class="nav-done" id="nd9"></div></div>
+    <div class="nav-item" onclick="showSection(10)"><div class="nav-num">10</div><div class="nav-text">Competitive Positioning</div><div class="nav-done" id="nd10"></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Performance</div>
+    <div class="nav-item" onclick="showSection(11)"><div class="nav-num">11</div><div class="nav-text">Ad Account & Paid Performance</div><div class="nav-done" id="nd11"></div></div>
+    <div class="nav-item" onclick="showSection(12)"><div class="nav-num">12</div><div class="nav-text">Internal Team & Awareness</div><div class="nav-done" id="nd12"></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Final Output</div>
+    <div class="nav-item" onclick="showSection(13)"><div class="nav-num">13</div><div class="nav-text">Audit Summary & Action Plan</div><div class="nav-done" id="nd13"></div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- ═══ SECTION 0: OVERVIEW ═══ -->
+<div class="section active" id="sec0">
+<div class="section-inner">
+  <div class="sec-eyebrow">MURAQBA Brand Audit Toolkit</div>
+  <div class="sec-title">Complete Brand Audit Roadmap</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">A professional, structured system for auditing any brand from the inside out — built for MURAQBA's client workflow. Follow each phase in order for a complete picture.</div>
+
+  <div class="intro-banner">
+    <h2>What is a Brand Audit?</h2>
+    <p>A brand audit is a deep examination of a brand's current position in the market compared to where it should be. It looks at everything the brand says, shows, and does — across all touchpoints — to find gaps, inconsistencies, and opportunities. As a digital advertising agency, this is your most powerful tool before recommending any service or package.</p>
+    <div class="intro-pills">
+      <span class="intro-pill">🕐 Full Audit: 2–4 Hours</span>
+      <span class="intro-pill">⚡ Quick Audit: 45 Minutes</span>
+      <span class="intro-pill">📋 13 Sections</span>
+      <span class="intro-pill">💯 Auto-Scored</span>
+      <span class="intro-pill">📱 Mobile Friendly</span>
+    </div>
+  </div>
+
+  <div class="cards three">
+    <div class="card accent"><div class="card-icon">👁</div><div class="card-label">Observe</div><h3>Brand Identity</h3><p>Logos, colors, fonts, tone — everything the brand looks and sounds like.</p></div>
+    <div class="card accent"><div class="card-icon">🎯</div><div class="card-label">Target</div><h3>External Perception</h3><p>What customers, the market, and competitors see when they look at this brand.</p></div>
+    <div class="card accent"><div class="card-icon">📈</div><div class="card-label">Scale</div><h3>Competitive Position</h3><p>Where the brand stands in its market and how to make it stand out stronger.</p></div>
+  </div>
+
+  <div class="cards two" style="margin-top:0;">
+    <div class="card">
+      <div class="card-label">How to Use This Toolkit</div>
+      <h3>Step-by-Step</h3>
+      <p style="margin-top:6px;">① Start with Section 01 — fill in client details<br>② Work through each section in order<br>③ Check every checkbox that applies<br>④ Rate items on 1–5 scale honestly<br>⑤ Add notes as you observe<br>⑥ Review Section 13 for your action plan</p>
+    </div>
+    <div class="card dark">
+      <div class="card-label" style="color:var(--gold);">Your Scoring System</div>
+      <h3 style="color:#fff;">Score Breakdown</h3>
+      <p>80–100% → Strong brand, minor fixes<br>60–79% → Decent foundation, needs polish<br>40–59% → Major gaps, needs strategy<br>Below 40% → Brand needs rebuilding</p>
+      <p style="margin-top:8px;font-size:10px;color:rgba(255,255,255,0.25);">Score auto-calculates as you check items.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:8px;">
+    <div class="insight tip"><div class="insight-icon">💡</div><div><h4>Pro Tip — MURAQBA Context</h4><p>Always complete the audit <em>before</em> presenting a package. The audit gives you facts to back your recommendations. A client is far more likely to say yes when you show them the gaps yourself, in numbers.</p></div></div>
+    <div class="insight info"><div class="insight-icon">✅</div><div><h4>When to Run This Audit</h4><p>Before every new client onboarding. Also valuable after 3 months of working with a brand — to show before/after progress and justify continuing the engagement.</p></div></div>
+  </div>
+
+  <button onclick="showSection(1)" style="margin-top:20px;padding:12px 28px;background:var(--gold);color:#fff;border:none;border-radius:5px;font-size:13px;font-family:'Outfit',sans-serif;cursor:pointer;font-weight:500;">Begin Audit → Section 01</button>
+</div></div>
+
+<!-- ═══ SECTION 1: CLIENT INTAKE ═══ -->
+<div class="section" id="sec1">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 01</div>
+  <div class="sec-title">Client Intake Form</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Fill this out before the audit begins. This becomes your reference sheet for everything that follows. Ask the client directly or research before your call.</div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-label">Basic Information</div>
+    <div class="field-row" style="margin-top:12px;">
+      <div class="field-wrap"><label>Brand / Business Name</label><input class="field-input" type="text" placeholder="e.g. Zara Collection PK"></div>
+      <div class="field-wrap"><label>Audit Date</label><input class="field-input" type="text" placeholder="DD/MM/YYYY"></div>
+      <div class="field-wrap"><label>Industry / Niche</label><input class="field-input" type="text" placeholder="e.g. Women's Clothing"></div>
+      <div class="field-wrap"><label>Business Age</label><input class="field-input" type="text" placeholder="e.g. 8 months"></div>
+      <div class="field-wrap"><label>Primary Platform</label><input class="field-input" type="text" placeholder="e.g. Instagram + Facebook"></div>
+      <div class="field-wrap"><label>Monthly Revenue (approx)</label><input class="field-input" type="text" placeholder="e.g. PKR 80,000"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-label">Online Presence Links</div>
+    <div class="field-row" style="margin-top:12px;">
+      <div class="field-wrap"><label>Instagram Profile URL</label><input class="field-input" type="text" placeholder="instagram.com/brandname"></div>
+      <div class="field-wrap"><label>Facebook Page URL</label><input class="field-input" type="text" placeholder="facebook.com/brandname"></div>
+      <div class="field-wrap"><label>Website (if any)</label><input class="field-input" type="text" placeholder="www.brandname.com"></div>
+      <div class="field-wrap"><label>WhatsApp Business Number</label><input class="field-input" type="text" placeholder="+92 xxx xxxxxxx"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-label">Business Context</div>
+    <div class="field-row" style="margin-top:12px;">
+      <div class="field-wrap"><label>Target Customer (Who buys?)</label><input class="field-input" type="text" placeholder="e.g. Women 20–35, Pakistan"></div>
+      <div class="field-wrap"><label>Main Products / Services</label><input class="field-input" type="text" placeholder="e.g. Abayas, Ready-to-wear"></div>
+      <div class="field-wrap"><label>Price Range</label><input class="field-input" type="text" placeholder="e.g. PKR 1,500 – 5,000"></div>
+      <div class="field-wrap"><label>Currently Running Ads?</label><input class="field-input" type="text" placeholder="Yes / No / Sometimes"></div>
+      <div class="field-wrap"><label>Monthly Ad Budget (if any)</label><input class="field-input" type="text" placeholder="e.g. PKR 10,000"></div>
+      <div class="field-wrap"><label>Biggest Problem Right Now</label><input class="field-input" type="text" placeholder="e.g. No sales from posts"></div>
+    </div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Pre-Audit Checklist — Confirm You Have Access To</div>
+    <div class="check-item" data-sec="1"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Facebook Page (view access minimum)</div><div class="ch-sub">You need to see the page's posts, about section, and reviews</div></div></div>
+    <div class="check-item" data-sec="1"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Instagram Profile (public or shared access)</div><div class="ch-sub">Check posts, bio, highlights, story archives, engagement</div></div></div>
+    <div class="check-item" data-sec="1"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">At least 3 competitor pages identified</div><div class="ch-sub">Similar niche, similar size — for comparison in Section 10</div></div></div>
+    <div class="check-item" data-sec="1"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Client has answered intake questions above</div><div class="ch-sub">Or you've researched the answers independently</div></div></div>
+    <div class="check-item" data-sec="1"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Note-taking space ready (this form!)</div><div class="ch-sub">Use the Notes fields in every section</div></div></div>
+  </div>
+
+  <label class="notes-label">Initial Observations (anything that stands out immediately)</label>
+  <textarea class="notes-area" placeholder="Write your first impressions of this brand here..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 2: MISSION, VISION, VALUES ═══ -->
+<div class="section" id="sec2">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 02</div>
+  <div class="sec-title">Mission, Vision & Values</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Every strong brand knows WHY it exists, WHERE it's going, and HOW it behaves. Without these, all marketing is guesswork. Audit whether the brand has clarity here.</div>
+
+  <div class="insight warn"><div class="insight-icon">⚠️</div><div><h4>Most Common Issue</h4><p>90% of small Pakistani brands have no documented mission or vision. They started selling without defining their purpose. This is not a problem — it's your opportunity to help them build it as part of your service.</p></div></div>
+
+  <div style="margin-top:20px;" class="checklist-group">
+    <div class="cg-title">Mission Statement</div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has a clear mission statement <span class="ch-tag critical">Critical</span></div><div class="ch-sub">A mission answers: Why does this brand exist? What problem does it solve for its customers?</div></div></div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Mission is customer-focused, not just profit-focused</div><div class="ch-sub">"To help women feel confident everyday" vs "To sell clothes" — which is more powerful?</div></div></div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Mission is visible or reflected in their content</div><div class="ch-sub">Even if not written, do their posts communicate a clear purpose?</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Vision Statement</div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has a future vision (even informally stated)</div><div class="ch-sub">Where does the founder want this brand to be in 3–5 years?</div></div></div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Vision is ambitious but believable</div><div class="ch-sub">"Become Pakistan's top modest wear brand by 2027" — specific and aspirational</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Brand Values</div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has 3–5 core values identified</div><div class="ch-sub">E.g. Quality, Modesty, Affordability, Speed, Community. These guide all decisions.</div></div></div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Values are reflected in how they talk to customers</div><div class="ch-sub">A brand that values "kindness" should have warm, welcoming captions and replies</div></div></div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Values are reflected in product quality and pricing</div><div class="ch-sub">If they say "premium quality," does the product and price point match?</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Unique Value Proposition (USP)</div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand can clearly answer: "Why you, not your competitor?" <span class="ch-tag critical">Critical</span></div><div class="ch-sub">If they can't answer this in one sentence, neither can their customers. Major problem.</div></div></div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">USP is communicated in bio, captions, and ads</div><div class="ch-sub">Customers should understand the unique advantage without asking</div></div></div>
+    <div class="check-item" data-sec="2"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">USP is genuinely different, not just "good quality and low price"</div><div class="ch-sub">That's not a USP — every brand claims that. What makes this one ACTUALLY different?</div></div></div>
+  </div>
+
+  <div class="field-row">
+    <div class="field-wrap"><label>Client's Stated Mission (their words)</label><input class="field-input" type="text" placeholder="Write exactly what they said..."></div>
+    <div class="field-wrap"><label>Client's Stated USP</label><input class="field-input" type="text" placeholder="What makes them different?"></div>
+  </div>
+  <label class="notes-label" style="margin-top:12px;">Notes — Mission, Vision & Values</label>
+  <textarea class="notes-area" placeholder="Gap between what they say and what their content shows... What mission would you recommend?..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 3: BRAND IDENTITY ═══ -->
+<div class="section" id="sec3">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 03</div>
+  <div class="sec-title">Brand Identity & Visual System</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Visual identity is the face of the brand — the first thing anyone sees. Check every element that a customer encounters visually, from logo to product photos.</div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Logo</div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has a logo <span class="ch-tag critical">Critical</span></div><div class="ch-sub">Even a basic text logo counts. A brand with no logo is invisible in a crowded feed.</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Logo is clear and readable at small sizes (profile picture size)</div><div class="ch-sub">Test: screenshot the profile picture and view it at 40x40px. Is it still recognizable?</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Logo has a clean version on white AND dark background</div><div class="ch-sub">They'll need both for different uses — posts, products, packaging</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Logo reflects brand personality (luxury, playful, minimal, bold)</div><div class="ch-sub">A handwritten logo suggests warmth. A geometric logo suggests structure.</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Logo does NOT look copied, generic, or created with a free logo maker</div><div class="ch-sub">Canva free logos with generic icons look unprofessional. Check for this.</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Color Palette</div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has 2–4 consistent colors used across all posts <span class="ch-tag important">Important</span></div><div class="ch-sub">Scroll their Instagram grid — do you see a consistent color story, or visual chaos?</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Color palette matches the brand's target customer and tone</div><div class="ch-sub">Soft pastels = feminine/gentle. Bold primary colors = energetic/affordable. Earth tones = natural/premium.</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Same colors are used in both organic posts AND any ads</div><div class="ch-sub">Inconsistency between organic and paid content breaks brand trust</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Typography (Fonts)</div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand uses consistent fonts in posts and graphics</div><div class="ch-sub">Changing fonts in every post = no brand personality</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Fonts are readable and appropriate for the niche</div><div class="ch-sub">Decorative scripts are pretty but unreadable at small sizes — balance style with function</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Product Photography & Visual Quality</div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Product photos are high quality and well-lit <span class="ch-tag critical">Critical</span></div><div class="ch-sub">Bad product photos kill even the best ads. This is non-negotiable before running ads.</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Photos have consistent style (same background, same lighting mood)</div><div class="ch-sub">A mix of white background, outdoor, and random indoor shots looks unpolished</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Human/model photos are included (not just flat lays)</div><div class="ch-sub">Clothing brands sell better when people can see how items look worn. Always recommend this.</div></div></div>
+    <div class="check-item" data-sec="3"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Photos do not have visible watermarks from competitors or photographer issues</div><div class="ch-sub">Stolen photos are a real problem in Pakistan's clothing market. Check this.</div></div></div>
+  </div>
+
+  <div class="rating-group">
+    <div class="cg-title" style="margin-bottom:14px;">Visual Identity Score (Rate 1–5)</div>
+    <div class="rating-item"><div><div class="rating-label">Overall Logo Quality</div><div class="rating-sub">How professional, memorable, and appropriate is the logo?</div></div><div class="stars" data-id="r3a"><div class="star" onclick="setRating('r3a',1)">1</div><div class="star" onclick="setRating('r3a',2)">2</div><div class="star" onclick="setRating('r3a',3)">3</div><div class="star" onclick="setRating('r3a',4)">4</div><div class="star" onclick="setRating('r3a',5)">5</div></div></div>
+    <div class="rating-item"><div><div class="rating-label">Color Palette Consistency</div><div class="rating-sub">Is the same palette used across the feed, stories, and ads?</div></div><div class="stars" data-id="r3b"><div class="star" onclick="setRating('r3b',1)">1</div><div class="star" onclick="setRating('r3b',2)">2</div><div class="star" onclick="setRating('r3b',3)">3</div><div class="star" onclick="setRating('r3b',4)">4</div><div class="star" onclick="setRating('r3b',5)">5</div></div></div>
+    <div class="rating-item"><div><div class="rating-label">Photography Quality</div><div class="rating-sub">Would you stop scrolling for these photos? Are they ad-ready?</div></div><div class="stars" data-id="r3c"><div class="star" onclick="setRating('r3c',1)">1</div><div class="star" onclick="setRating('r3c',2)">2</div><div class="star" onclick="setRating('r3c',3)">3</div><div class="star" onclick="setRating('r3c',4)">4</div><div class="star" onclick="setRating('r3c',5)">5</div></div></div>
+    <div class="rating-item"><div><div class="rating-label">Overall First Impression (scroll test)</div><div class="rating-sub">Open their profile fresh — what's your gut reaction in 3 seconds?</div></div><div class="stars" data-id="r3d"><div class="star" onclick="setRating('r3d',1)">1</div><div class="star" onclick="setRating('r3d',2)">2</div><div class="star" onclick="setRating('r3d',3)">3</div><div class="star" onclick="setRating('r3d',4)">4</div><div class="star" onclick="setRating('r3d',5)">5</div></div></div>
+  </div>
+
+  <label class="notes-label">Visual Identity Notes</label>
+  <textarea class="notes-area" placeholder="Key visual problems... What needs fixing first... Recommendations..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 4: BRAND GUIDELINES ═══ -->
+<div class="section" id="sec4">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 04</div>
+  <div class="sec-title">Brand Guidelines & Internal Consistency</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Brand guidelines are the rulebook that keeps a brand looking and sounding the same everywhere. Without them, every new post, ad, or collaboration pulls the brand in a different direction.</div>
+
+  <div class="insight tip"><div class="insight-icon">💡</div><div><h4>MURAQBA Opportunity</h4><p>Most small brands don't have brand guidelines. Creating a simple 1-page brand guide (logo, colors, fonts, tone) can be offered as a add-on service and positions you as a premium agency.</p></div></div>
+
+  <div class="checklist-group" style="margin-top:20px;">
+    <div class="cg-title">Brand Guidelines Document</div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has any form of documented guidelines</div><div class="ch-sub">Even a simple PDF with logo, colors, and fonts. Most brands don't — note it.</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Logo usage rules are defined (minimum size, clear space, no-stretch rule)</div><div class="ch-sub">Stretched or tiny logos are a sign of no guidelines</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Color codes (HEX or RGB) are saved and accessible</div><div class="ch-sub">Without the exact color code, every designer recreates a slightly different shade</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Font names are documented for future use</div><div class="ch-sub">Otherwise, the brand font becomes "the one that looks like the old posts"</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Cross-Platform Visual Consistency</div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Facebook Page and Instagram look like the same brand <span class="ch-tag important">Important</span></div><div class="ch-sub">Same profile picture, same bio style, same color story — often completely different</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Profile picture is the same (or coordinated) across platforms</div><div class="ch-sub">Different profile pictures across platforms destroys brand recognition</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Cover photo / banner is consistent, branded, and up to date</div><div class="ch-sub">A blank cover photo or unbranded banner is a major missed opportunity</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Ads match the organic content visual style</div><div class="ch-sub">When ads look completely different to organic posts, it breaks the brand experience</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">WhatsApp Business profile is branded (logo, description, catalog)</div><div class="ch-sub">Many Pakistan brands take orders via WhatsApp — check if this touchpoint is branded</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Packaging / labels are consistent with digital branding (if physical product)</div><div class="ch-sub">Unboxing experience = a massive untapped brand touchpoint for clothing brands</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Templates & Systems</div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand uses content templates (not designing every post from scratch)</div><div class="ch-sub">Templates = faster content, more consistent look, less decision fatigue</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has saved Canva / design files for their own templates</div><div class="ch-sub">If only you have the files, the client is dependent on you — great for retention but flag it</div></div></div>
+    <div class="check-item" data-sec="4"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Watermark / logo is placed consistently on product photos</div><div class="ch-sub">Prevents photo theft and increases brand recall when posts are shared</div></div></div>
+  </div>
+
+  <label class="notes-label">Consistency Notes</label>
+  <textarea class="notes-area" placeholder="Platform inconsistencies found... Template suggestions... Guidelines to create..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 5: BRAND VOICE ═══ -->
+<div class="section" id="sec5">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 05</div>
+  <div class="sec-title">Brand Voice & Communication Style</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Brand voice is HOW the brand speaks — the personality behind every caption, reply, and story. A brand that sounds like a real person builds trust faster than one that sounds like a catalogue.</div>
+
+  <div class="cards two" style="margin-bottom:20px;">
+    <div class="card accent">
+      <div class="card-label">Brand Voice Pillars (Examples)</div>
+      <p style="font-size:11px;line-height:1.8;margin-top:6px;"><strong>Warm & Friendly</strong> — Feels like advice from a friend<br><strong>Authoritative</strong> — Confident, knowledgeable, trusted expert<br><strong>Playful</strong> — Light, fun, uses humour<br><strong>Inspirational</strong> — Empowers and motivates<br><strong>Elegant</strong> — Refined, luxury, aspirational<br><strong>Direct</strong> — No fluff, gets straight to the point</p>
+    </div>
+    <div class="card dark">
+      <div class="card-label" style="color:var(--gold);">3 Ways to Test Brand Voice</div>
+      <p style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.8;margin-top:6px;">1. Read 10 captions aloud — do they all sound like the same person?<br>2. Check comment replies — is the brand warm or cold?<br>3. Look at DM screenshots (if shared) — is the sales approach consistent?</p>
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div class="field-wrap"><label>Client's Brand Voice (how would you describe it?)</label><input class="field-input" type="text" placeholder="e.g. Warm, personal, Urdu-English mix"></div>
+    <div class="field-wrap"><label>What Voice Should It Be?</label><input class="field-input" type="text" placeholder="e.g. Confident, friendly, aspirational"></div>
+  </div>
+
+  <div class="checklist-group" style="margin-top:18px;">
+    <div class="cg-title">Caption & Content Writing Quality</div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Captions go beyond "DM to order" or product description only <span class="ch-tag important">Important</span></div><div class="ch-sub">Value-adding captions (tips, stories, questions) drive engagement. "Price PKR 2,500" is not a caption.</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Captions have a consistent call-to-action (CTA)</div><div class="ch-sub">Every caption should tell the reader what to do next: DM, comment, click link, etc.</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Writing style is consistent across all posts</div><div class="ch-sub">Some formal, some casual, some in Urdu, some in English — is there a pattern?</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Hashtag strategy is consistent and relevant</div><div class="ch-sub">30 random hashtags ≠ strategy. Check if hashtags are niche-specific and mixed by size.</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Language choice (Urdu / English / mix) is intentional</div><div class="ch-sub">Urdu reaches broader local audiences. English signals premium. Know which this brand should use.</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Customer Interaction & DM Management</div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand replies to comments consistently <span class="ch-tag important">Important</span></div><div class="ch-sub">Comments left unanswered = lost engagement + bad signal to algorithm</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">DM response time is under 3 hours during business hours</div><div class="ch-sub">In Pakistan's DM-based commerce, slow replies = lost sales. Ask the client directly.</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Reply tone in comments is warm and professional</div><div class="ch-sub">Even negative comments deserve a professional, calm response</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand does NOT get into arguments or delete critical comments</div><div class="ch-sub">Deleting real negative comments destroys trust faster than the original complaint</div></div></div>
+    <div class="check-item" data-sec="5"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Story polls, questions, and interactive stickers are used</div><div class="ch-sub">Interactive stories = higher engagement rate + better algorithm reach</div></div></div>
+  </div>
+
+  <label class="notes-label">Voice & Communication Notes</label>
+  <textarea class="notes-area" placeholder="Caption quality examples... Reply tone... Recommended voice direction..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 6: DIGITAL PRESENCE ═══ -->
+<div class="section" id="sec6">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 06</div>
+  <div class="sec-title">Digital Presence Audit</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Go through each platform systematically. You're checking for completeness, professionalism, and whether each platform is actually working for the brand or just existing.</div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Instagram Profile</div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Username is the brand name (not personal name or random numbers) <span class="ch-tag critical">Critical</span></div><div class="ch-sub">@zarascollection is searchable. @user38192847 is not a brand.</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Bio clearly states: what they sell, who it's for, and how to buy</div><div class="ch-sub">A good bio answers all 3 in 2 lines. Check if the client's bio does this.</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Link in bio is active and leads somewhere useful</div><div class="ch-sub">WhatsApp link, Linktree, or website — not empty or broken</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Account is set to Business or Creator (not Personal)</div><div class="ch-sub">Business account = access to insights, ads, contact buttons. Non-negotiable for a brand.</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Highlights are organized and labeled clearly</div><div class="ch-sub">Highlights for: Products, Reviews, Process, FAQ, About — not a pile of random expired stories</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Feed has at least 9 posts (a full first impression row)</div><div class="ch-sub">When someone visits, they see a 3x3 grid. Is that grid appealing?</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Posting frequency is at least 3x/week</div><div class="ch-sub">Brands that post once a month are invisible. Algorithm punishes infrequent accounts.</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Reels are being used (not just static posts)</div><div class="ch-sub">Reels get 40–60% more reach than static posts on Instagram in 2025</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Facebook Page</div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Page is a Business Page (not a personal profile used for business) <span class="ch-tag critical">Critical</span></div><div class="ch-sub">You CANNOT run ads from a personal profile. This is a hard requirement.</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Page category is correct (Clothing, Online Store, etc.)</div><div class="ch-sub">Wrong category affects discoverability and how the page shows up in search</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">About section is fully filled (website, contact, description)</div><div class="ch-sub">Incomplete About sections look like abandoned pages</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Page is connected to Instagram (for running ads across both)</div><div class="ch-sub">Unconnected pages can't run Instagram ads from Meta Ads Manager</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Page has Meta Pixel installed (if they have a website)</div><div class="ch-sub">No pixel = no retargeting = leaving money on the table</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Overall Engagement Health</div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Engagement rate is above 2% (likes + comments ÷ followers)</div><div class="ch-sub">Under 1% means followers are not engaged — possibly bought followers or dead account</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Follower growth is steady (not a sudden spike then flat)</div><div class="ch-sub">A sudden spike followed by flatline = bought followers. Show this to clients if they claim "organic growth"</div></div></div>
+    <div class="check-item" data-sec="6"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Stories are posted at least 3–4 times per week</div><div class="ch-sub">Stories keep you at the top of your followers' feeds. No stories = no daily visibility.</div></div></div>
+  </div>
+
+  <div class="field-row">
+    <div class="field-wrap"><label>Instagram Followers</label><input class="field-input" type="text" placeholder="e.g. 4,200"></div>
+    <div class="field-wrap"><label>Facebook Page Likes</label><input class="field-input" type="text" placeholder="e.g. 1,800"></div>
+    <div class="field-wrap"><label>Avg. Post Likes</label><input class="field-input" type="text" placeholder="e.g. 85"></div>
+    <div class="field-wrap"><label>Engagement Rate %</label><input class="field-input" type="text" placeholder="Likes+Comments ÷ Followers × 100"></div>
+  </div>
+
+  <label class="notes-label">Digital Presence Notes</label>
+  <textarea class="notes-area" placeholder="What's missing... What's broken... Quick wins to fix first..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 7: CONTENT & MARKETING ═══ -->
+<div class="section" id="sec7">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 07</div>
+  <div class="sec-title">Content & Marketing Effectiveness</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Great content is the engine of every brand. Check whether the content this brand is creating is actually working — educating, engaging, converting, and building loyalty.</div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Content Mix & Strategy</div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Content is a mix — not 100% product selling posts <span class="ch-tag important">Important</span></div><div class="ch-sub">Best mix: 40% product/sales, 30% educational/tips, 20% social proof/reviews, 10% behind-the-scenes</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand posts behind-the-scenes content (packing, process, founder)</div><div class="ch-sub">Humanizing the brand increases trust — especially in Pakistan's DM-based market</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Educational or value-adding content is included</div><div class="ch-sub">E.g. "How to style an abaya 3 ways" — this gets saved and shared, not just liked</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Customer testimonials / reviews are posted regularly</div><div class="ch-sub">Social proof is the most powerful sales tool. If they have happy customers, show them.</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Seasonal and trend-relevant content is planned ahead</div><div class="ch-sub">Eid, winter, back to school — brands that plan ahead dominate brands that react late</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Content Calendar & Consistency</div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has any form of content calendar or planned schedule</div><div class="ch-sub">Even a simple WhatsApp reminder to post is better than nothing</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Posting schedule is consistent (same days/times each week)</div><div class="ch-sub">Algorithm rewards consistency. Random posting = algorithm punishes you.</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Best performing post types have been identified and repeated</div><div class="ch-sub">What gets the most saves, shares, comments? Do more of that. Has the brand noticed?</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Marketing Communication</div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">All promotional posts have a clear offer and deadline</div><div class="ch-sub">"50% off today only" beats "we have a sale going on." Urgency matters.</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">WhatsApp broadcast / Story is used for promotions</div><div class="ch-sub">Existing customers are the easiest sale. Are they being communicated with directly?</div></div></div>
+    <div class="check-item" data-sec="7"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">At least one lead magnet or freebie has been tested</div><div class="ch-sub">E.g. "DM us 'LOOKBOOK' for our free styling guide" — builds DM list and conversation</div></div></div>
+  </div>
+
+  <div class="rating-group">
+    <div class="cg-title" style="margin-bottom:14px;">Content Quality Score (Rate 1–5)</div>
+    <div class="rating-item"><div><div class="rating-label">Content Variety</div><div class="rating-sub">Is there a healthy mix of posts beyond just product photos?</div></div><div class="stars" data-id="r7a"><div class="star" onclick="setRating('r7a',1)">1</div><div class="star" onclick="setRating('r7a',2)">2</div><div class="star" onclick="setRating('r7a',3)">3</div><div class="star" onclick="setRating('r7a',4)">4</div><div class="star" onclick="setRating('r7a',5)">5</div></div></div>
+    <div class="rating-item"><div><div class="rating-label">Posting Consistency</div><div class="rating-sub">Regular schedule or random and inconsistent?</div></div><div class="stars" data-id="r7b"><div class="star" onclick="setRating('r7b',1)">1</div><div class="star" onclick="setRating('r7b',2)">2</div><div class="star" onclick="setRating('r7b',3)">3</div><div class="star" onclick="setRating('r7b',4)">4</div><div class="star" onclick="setRating('r7b',5)">5</div></div></div>
+    <div class="rating-item"><div><div class="rating-label">Sales Conversion Power</div><div class="rating-sub">Does the content make you want to DM and buy?</div></div><div class="stars" data-id="r7c"><div class="star" onclick="setRating('r7c',1)">1</div><div class="star" onclick="setRating('r7c',2)">2</div><div class="star" onclick="setRating('r7c',3)">3</div><div class="star" onclick="setRating('r7c',4)">4</div><div class="star" onclick="setRating('r7c',5)">5</div></div></div>
+  </div>
+
+  <label class="notes-label">Content & Marketing Notes</label>
+  <textarea class="notes-area" placeholder="Content gaps... Best performing content types... Calendar recommendations..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 8: EXTERNAL PERCEPTION ═══ -->
+<div class="section" id="sec8">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 08</div>
+  <div class="sec-title">External Perception & Customer Feedback</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">What do customers actually think about this brand? External perception is what people say when the brand isn't in the room. It's often very different from what the brand believes about itself.</div>
+
+  <div class="insight warn"><div class="insight-icon">⚠️</div><div><h4>Reality Check</h4><p>Many brands believe they have a great reputation because they see their own happy customer screenshots. A real audit means looking for the negative too — bad comments, deleted reviews, angry DM screenshots, or any public complaints. This honesty is what makes your audit valuable.</p></div></div>
+
+  <div class="checklist-group" style="margin-top:20px;">
+    <div class="cg-title">Reviews & Testimonials</div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Facebook page has reviews/recommendations visible <span class="ch-tag important">Important</span></div><div class="ch-sub">Open the page — can you see a star rating? What is it? Are there written reviews?</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Customer testimonials are actively collected and posted</div><div class="ch-sub">Brands that share real screenshots of happy customers build more trust than any ad</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Negative reviews/feedback have been responded to professionally</div><div class="ch-sub">A brand that handles complaints well publicly actually builds MORE trust than one with none</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">There are no patterns of complaints (late delivery, wrong item, etc.)</div><div class="ch-sub">If 5 people complain about the same thing, it's not bad luck — it's a process problem</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Social Sentiment Analysis</div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Comment section tone is predominantly positive</div><div class="ch-sub">Read the last 50 comments across recent posts — what's the mood?</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Customers tag this brand in their own posts (organic UGC)</div><div class="ch-sub">User-Generated Content = free marketing + proof of real customers. Is it happening?</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand is mentioned or discussed in relevant Facebook groups</div><div class="ch-sub">Search the brand name in Pakistani clothing buyer groups — what comes up?</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">No recent viral complaints or boycott posts found</div><div class="ch-sub">Search brand name + "scam", "fraud", "beware" — unfortunately common in Pakistan e-commerce</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Customer Experience Touchpoints</div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Ordering process is clear and easy (DM / website / catalog)</div><div class="ch-sub">Ask the client: "Walk me through exactly how a customer orders." Complexity = lost sales.</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Delivery is within the promised timeframe</div><div class="ch-sub">Late delivery is the #1 source of negative reviews in Pakistan's online market</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Post-purchase follow up exists (thank you message, review request)</div><div class="ch-sub">Most brands disappear after payment. A single "how's your order?" message = massive goodwill.</div></div></div>
+    <div class="check-item" data-sec="8"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Return / exchange policy is clearly communicated</div><div class="ch-sub">Unclear return policies cause anxiety before purchase — kills conversions</div></div></div>
+  </div>
+
+  <div class="field-row">
+    <div class="field-wrap"><label>Facebook Star Rating</label><input class="field-input" type="text" placeholder="e.g. 4.2 / 5"></div>
+    <div class="field-wrap"><label>No. of Reviews</label><input class="field-input" type="text" placeholder="e.g. 34 reviews"></div>
+    <div class="field-wrap"><label>Most Common Complaint</label><input class="field-input" type="text" placeholder="e.g. Late delivery"></div>
+    <div class="field-wrap"><label>Most Common Praise</label><input class="field-input" type="text" placeholder="e.g. Beautiful fabric"></div>
+  </div>
+  <label class="notes-label">External Perception Notes</label>
+  <textarea class="notes-area" placeholder="Sentiment summary... Key complaints... Opportunities from positive feedback..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 9: RECOGNITION & LOYALTY ═══ -->
+<div class="section" id="sec9">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 09</div>
+  <div class="sec-title">Brand Recognition & Loyalty</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">Recognition is whether people remember the brand. Loyalty is whether people come back and refer others. Both take time to build — but both can be measured and accelerated.</div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Brand Recognition Signals</div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has a recognizable visual signature (color, style, aesthetic)</div><div class="ch-sub">Can you identify this brand's post without seeing the logo? That's brand recognition.</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand uses a consistent, searchable hashtag of their own</div><div class="ch-sub">E.g. #ZarasCollection — a custom hashtag that aggregates all their content</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Customers mention the brand by name in comments</div><div class="ch-sub">"I love Zara's abayas!" in comments = high awareness. Vague "nice post" = low awareness.</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand shows up when you search their name on Facebook/Instagram</div><div class="ch-sub">Simple test — search the brand name. Are they easy to find?</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Brand Loyalty Signals</div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Repeat customers exist (not just one-time buyers) <span class="ch-tag important">Important</span></div><div class="ch-sub">Ask the client: "Do you have regular customers who come back?" If no — why not?</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Referrals are happening (customers bringing new customers)</div><div class="ch-sub">"My friend told me about you" = the most powerful and free marketing channel</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has a loyalty incentive (discount for repeat buyers, referral reward)</div><div class="ch-sub">A simple "bring a friend, both get 10% off" can double word-of-mouth overnight</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Customers actively engage with stories and posts (saves, shares)</div><div class="ch-sub">Saves = strong interest. Shares = brand advocacy. These are the highest loyalty signals.</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has any form of community (WhatsApp group, Facebook group)</div><div class="ch-sub">A loyal community of even 100 people is worth more than 10,000 passive followers</div></div></div>
+    <div class="check-item" data-sec="9"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand celebrates customers (reshares their photos, mentions them)</div><div class="ch-sub">Brands that make customers feel seen create fans, not just buyers</div></div></div>
+  </div>
+
+  <div class="rating-group">
+    <div class="cg-title" style="margin-bottom:14px;">Recognition & Loyalty Score (Rate 1–5)</div>
+    <div class="rating-item"><div><div class="rating-label">Brand Memorability</div><div class="rating-sub">Would a random person who saw this page once remember it tomorrow?</div></div><div class="stars" data-id="r9a"><div class="star" onclick="setRating('r9a',1)">1</div><div class="star" onclick="setRating('r9a',2)">2</div><div class="star" onclick="setRating('r9a',3)">3</div><div class="star" onclick="setRating('r9a',4)">4</div><div class="star" onclick="setRating('r9a',5)">5</div></div></div>
+    <div class="rating-item"><div><div class="rating-label">Customer Loyalty Strength</div><div class="rating-sub">Evidence of repeat customers, referrals, and community</div></div><div class="stars" data-id="r9b"><div class="star" onclick="setRating('r9b',1)">1</div><div class="star" onclick="setRating('r9b',2)">2</div><div class="star" onclick="setRating('r9b',3)">3</div><div class="star" onclick="setRating('r9b',4)">4</div><div class="star" onclick="setRating('r9b',5)">5</div></div></div>
+  </div>
+
+  <label class="notes-label">Recognition & Loyalty Notes</label>
+  <textarea class="notes-area" placeholder="Loyal customer indicators... Referral opportunities... Community building recommendations..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 10: COMPETITIVE POSITIONING ═══ -->
+<div class="section" id="sec10">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 10</div>
+  <div class="sec-title">Competitive Positioning</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">No brand exists in isolation. Where does this brand sit relative to its competitors? Is it differentiated, or is it just another version of the same thing? This section gives you the data to answer that.</div>
+
+  <div class="insight tip"><div class="insight-icon">💡</div><div><h4>How to Find Competitors</h4><p>Search Instagram hashtags (#lahoriclothing, #pakistaniabaya, etc.) → look at similar accounts. Check who follows and engages with the client's page. Ask the client: "Who do you look at for inspiration? Who are you competing with?"</p></div></div>
+
+  <table class="comp-table" style="margin-top:20px;">
+    <thead><tr><th>Competitor</th><th>Followers</th><th>Price Range</th><th>Their Strength</th><th>Their Weakness</th><th>Your Client's Edge</th></tr></thead>
+    <tbody>
+      <tr><td><input type="text" placeholder="Competitor 1 name"></td><td><input type="text" placeholder="e.g. 12k"></td><td><input type="text" placeholder="PKR..."></td><td><input type="text" placeholder="Strong point"></td><td><input type="text" placeholder="Weak point"></td><td><input type="text" placeholder="How client beats them"></td></tr>
+      <tr><td><input type="text" placeholder="Competitor 2 name"></td><td><input type="text" placeholder="e.g. 8k"></td><td><input type="text" placeholder="PKR..."></td><td><input type="text" placeholder="Strong point"></td><td><input type="text" placeholder="Weak point"></td><td><input type="text" placeholder="How client beats them"></td></tr>
+      <tr><td><input type="text" placeholder="Competitor 3 name"></td><td><input type="text" placeholder="e.g. 25k"></td><td><input type="text" placeholder="PKR..."></td><td><input type="text" placeholder="Strong point"></td><td><input type="text" placeholder="Weak point"></td><td><input type="text" placeholder="How client beats them"></td></tr>
+    </tbody>
+  </table>
+
+  <div class="checklist-group">
+    <div class="cg-title">Competitive Differentiation</div>
+    <div class="check-item" data-sec="10"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand looks visually different from its top 3 competitors <span class="ch-tag critical">Critical</span></div><div class="ch-sub">Open all competitor profiles side by side. Does this brand stand out or blend in?</div></div></div>
+    <div class="check-item" data-sec="10"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand's price point is justified by its perceived quality</div><div class="ch-sub">Pricing above average? The brand must look premium. Pricing below? Volume game — is that intentional?</div></div></div>
+    <div class="check-item" data-sec="10"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand targets a niche the competitors are ignoring</div><div class="ch-sub">E.g. competitors target all women — this brand targets plus-size modest wear. Niche = less competition.</div></div></div>
+    <div class="check-item" data-sec="10"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has a content angle competitors don't use</div><div class="ch-sub">Unique content formats, behind-the-scenes, founder story — something competitors are missing</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Market Positioning</div>
+    <div class="check-item" data-sec="10"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand clearly occupies one of these positions: Budget / Mid-range / Premium</div><div class="ch-sub">Brands stuck between positions confuse buyers. Pick a lane and own it.</div></div></div>
+    <div class="check-item" data-sec="10"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand has identified its primary geographic market (Lahore, all Pakistan, diaspora)</div><div class="ch-sub">Targeting "everyone" means reaching no one. A specific geographic focus improves ad targeting precision.</div></div></div>
+    <div class="check-item" data-sec="10"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Brand tracks what competitors are doing (new launches, campaigns)</div><div class="ch-sub">Not to copy — to spot gaps. When all competitors ignore Eid prep, being first wins.</div></div></div>
+  </div>
+
+  <div class="field-row">
+    <div class="field-wrap"><label>Market Position</label><input class="field-input" type="text" placeholder="Budget / Mid / Premium"></div>
+    <div class="field-wrap"><label>Biggest Market Gap Found</label><input class="field-input" type="text" placeholder="What are competitors missing?"></div>
+  </div>
+  <label class="notes-label">Competitive Analysis Notes</label>
+  <textarea class="notes-area" placeholder="Competitive advantages... Positioning recommendation... Gaps to exploit..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 11: ADS & PAID PERFORMANCE ═══ -->
+<div class="section" id="sec11">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 11</div>
+  <div class="sec-title">Ad Account & Paid Performance Audit</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">If the client is running ads — or has run ads before — this section is critical. Poor ad performance is often not the ad's fault. It's the targeting, the landing page, the offer, or the creative quality.</div>
+
+  <div class="insight info"><div class="insight-icon">📌</div><div><h4>If They've Never Run Ads</h4><p>Skip the performance metrics — but still fill in the setup checklist. A brand that's never run ads often has account issues that would prevent launching ads immediately. Find these now, not after they've paid you.</p></div></div>
+
+  <div class="checklist-group" style="margin-top:20px;">
+    <div class="cg-title">Ad Account Setup</div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Meta Business Manager account exists and is set up <span class="ch-tag critical">Critical</span></div><div class="ch-sub">Cannot run ads without Business Manager. Many small brands have never set it up.</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Ad Account is active and in good standing (no restrictions) <span class="ch-tag critical">Critical</span></div><div class="ch-sub">Restricted accounts cannot run ads. Check this FIRST before promising anything.</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Valid payment method added to Ad Account</div><div class="ch-sub">Debit card, credit card, or Meta credit — must be active and not expired</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Facebook Page is connected to Business Manager</div><div class="ch-sub">Pages not in Business Manager create ad management complications</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Instagram Account is connected to Business Manager</div><div class="ch-sub">Required to run Instagram ads properly</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Meta Pixel is installed (if they have a website)</div><div class="ch-sub">Without pixel: no retargeting, no purchase tracking, no lookalike audiences from buyers</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Previous Ad Performance (if applicable)</div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">CPM (Cost Per 1,000 Impressions) is within acceptable range</div><div class="ch-sub">Pakistan average: PKR 150–400 CPM for clothing. Above PKR 800 = targeting or creative issue.</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">CTR (Click-Through Rate) is above 1%</div><div class="ch-sub">Below 0.5% CTR means the ad creative or offer is not compelling enough</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Ads were using the correct campaign objective</div><div class="ch-sub">Running a "Page Likes" objective to get sales is one of the most common beginner mistakes</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Audience targeting was specific (not "Pakistan, 18–65, All Interests")</div><div class="ch-sub">Broad targeting wastes budget. Interest + behavior + lookalike layering is the correct approach.</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Ad creative was tested (A/B test with different images or copy)</div><div class="ch-sub">Running one ad with no testing = leaving optimization on the table</div></div></div>
+    <div class="check-item" data-sec="11"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Results were tracked (cost per lead / cost per DM / cost per sale)</div><div class="ch-sub">"The ad got 500 likes" is not a business result. Revenue and leads are what matter.</div></div></div>
+  </div>
+
+  <div class="field-row">
+    <div class="field-wrap"><label>Total Ad Spend (lifetime)</label><input class="field-input" type="text" placeholder="PKR ..."></div>
+    <div class="field-wrap"><label>Best Result from Ads</label><input class="field-input" type="text" placeholder="e.g. 40 DMs, 12 sales"></div>
+    <div class="field-wrap"><label>Worst Experience with Ads</label><input class="field-input" type="text" placeholder="e.g. Spent 5k, zero sales"></div>
+    <div class="field-wrap"><label>Current Monthly Ad Budget</label><input class="field-input" type="text" placeholder="PKR ..."></div>
+  </div>
+  <label class="notes-label">Ads & Paid Performance Notes</label>
+  <textarea class="notes-area" placeholder="Account issues found... Past mistakes... Recommended campaign structure..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 12: INTERNAL AWARENESS ═══ -->
+<div class="section" id="sec12">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 12</div>
+  <div class="sec-title">Internal Team & Brand Awareness</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">For small brands in Pakistan, "internal" often means the founder and maybe 1–2 family members. Still — does everyone involved in the business understand and represent the brand consistently?</div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Founder Brand Clarity</div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Founder can describe the brand in one sentence without hesitating <span class="ch-tag important">Important</span></div><div class="ch-sub">If the founder can't, their team and customers definitely can't</div></div></div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Founder knows who their ideal customer is (age, location, income, interests)</div><div class="ch-sub">Vague answer ("women who like fashion") = vague targeting in ads = wasted budget</div></div></div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Founder is aware of what makes them different from competitors</div><div class="ch-sub">If they can't name 2 genuine differences, you have work to do before ads can work</div></div></div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Founder tracks basic numbers (monthly sales, DMs, conversion rate)</div><div class="ch-sub">A founder who doesn't track numbers cannot tell you if ads are working</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Team & Operations (if any team exists)</div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Anyone helping with the brand knows the brand voice</div><div class="ch-sub">A family member replying to DMs in a completely different tone = inconsistent brand experience</div></div></div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Content creation is not solely dependent on one person</div><div class="ch-sub">If the founder disappears for a week, does posting stop? Single points of failure = risky.</div></div></div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">There is a process for handling orders, complaints, and returns</div><div class="ch-sub">Inconsistent handling of orders is a sign of no system — this causes negative reviews</div></div></div>
+  </div>
+
+  <div class="checklist-group">
+    <div class="cg-title">Brand Growth Mindset</div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Founder is open to feedback and change</div><div class="ch-sub">A client who refuses all suggestions is not a good client for MURAQBA's results model</div></div></div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Founder has realistic expectations about ad timelines (14–30 days for results)</div><div class="ch-sub">Clients expecting results in 3 days will always be disappointed — set expectations now</div></div></div>
+    <div class="check-item" data-sec="12"><div class="ch-box" onclick="toggleCheck(this)"></div><div class="ch-content"><div class="ch-label">Founder is willing to provide quality assets (photos, videos) on time</div><div class="ch-sub">Your biggest bottleneck as an agency is often waiting for client assets. Assess this risk early.</div></div></div>
+  </div>
+
+  <label class="notes-label">Internal Awareness Notes</label>
+  <textarea class="notes-area" placeholder="Client mindset assessment... Risk factors... Expectations to manage..."></textarea>
+</div></div>
+
+<!-- ═══ SECTION 13: SUMMARY ═══ -->
+<div class="section" id="sec13">
+<div class="section-inner">
+  <div class="sec-eyebrow">Section 13 — Final Output</div>
+  <div class="sec-title">Audit Summary & Action Plan</div>
+  <div class="sec-bar"></div>
+  <div class="sec-desc">This is what you deliver to yourself (and optionally to the client). Use the findings from every section to build a clear, prioritized action plan.</div>
+
+  <div class="score-section">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div><div style="font-size:9px;font-weight:700;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:4px;">OVERALL AUDIT SCORE</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--gold);line-height:1;" id="finalScore">—</div></div>
+      <div style="text-align:right;"><div style="font-size:11px;color:rgba(255,255,255,0.25);line-height:1.8;" id="scoreInterpret">Complete the checklist<br>items to calculate.</div></div>
+    </div>
+    <div class="score-grid">
+      <div class="score-box"><div class="score-num" id="s-foundation">—</div><div class="score-lbl">Foundation</div></div>
+      <div class="score-box"><div class="score-num" id="s-presence">—</div><div class="score-lbl">Presence</div></div>
+      <div class="score-box"><div class="score-num" id="s-external">—</div><div class="score-lbl">External</div></div>
+      <div class="score-box"><div class="score-num" id="s-performance">—</div><div class="score-lbl">Performance</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;" class="checklist-group">
+    <div class="cg-title">Final Summary — Fill After Completing All Sections</div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-label">🔴 Top 3 Critical Issues (Fix First)</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;">
+      <input class="field-input" type="text" placeholder="1. e.g. No brand guidelines — colors and fonts change every post">
+      <input class="field-input" type="text" placeholder="2. e.g. Facebook page not connected to Business Manager — can't run ads">
+      <input class="field-input" type="text" placeholder="3. e.g. Product photos are low quality — will kill any ad campaign">
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-label">🟡 3 Important Improvements (Do This Month)</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;">
+      <input class="field-input" type="text" placeholder="1. e.g. Start posting testimonials — have 12 happy customer screenshots unused">
+      <input class="field-input" type="text" placeholder="2. e.g. Add CTAs to every caption — currently just showing price">
+      <input class="field-input" type="text" placeholder="3. e.g. Create Instagram highlights: Products, Reviews, About">
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-label">🟢 3 Quick Wins (Do This Week)</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;">
+      <input class="field-input" type="text" placeholder="1. e.g. Update bio — missing what they sell and link in bio">
+      <input class="field-input" type="text" placeholder="2. e.g. Set WhatsApp Business profile with logo and description">
+      <input class="field-input" type="text" placeholder="3. e.g. Post 3 saved customer review screenshots immediately">
+    </div>
+  </div>
+
+  <div class="card dark" style="margin-bottom:14px;">
+    <div class="card-label" style="color:var(--gold);">MURAQBA Package Recommendation</div>
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;"><label style="font-size:11px;color:rgba(255,255,255,0.35);width:120px;flex-shrink:0;">Recommended Package:</label><input class="field-input" type="text" placeholder="STARTER / GROWTH / SCALE" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:#fff;flex:1;min-width:150px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;"><label style="font-size:11px;color:rgba(255,255,255,0.35);width:120px;flex-shrink:0;">Reason:</label><input class="field-input" type="text" placeholder="Why this package fits this brand's needs..." style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:#fff;flex:1;min-width:150px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;"><label style="font-size:11px;color:rgba(255,255,255,0.35);width:120px;flex-shrink:0;">First Milestone:</label><input class="field-input" type="text" placeholder="e.g. 30 DM leads in 30 days" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:#fff;flex:1;min-width:150px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;"><label style="font-size:11px;color:rgba(255,255,255,0.35);width:120px;flex-shrink:0;">Red Flags:</label><input class="field-input" type="text" placeholder="Anything that could make results harder..." style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:#fff;flex:1;min-width:150px;"></div>
+    </div>
+  </div>
+
+  <label class="notes-label">Final Overall Assessment</label>
+  <textarea class="notes-area" style="min-height:110px;" placeholder="Write your overall summary of this brand's health... What story do the numbers tell?... Is this a brand you can help?..."></textarea>
+
+  <div style="margin-top:20px;padding:16px 20px;background:rgba(190,142,111,0.08);border:1px solid rgba(190,142,111,0.2);border-radius:7px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:0.18em;color:var(--gold);margin-bottom:6px;">MURAQBA AUDIT COMPLETE</div>
+    <p style="font-size:12px;color:var(--sub);line-height:1.7;">You now have a complete picture of this brand's identity, digital presence, external perception, and competitive position. Use this to recommend the right MURAQBA package with confidence — backed by facts, not feelings.</p>
+    <p style="margin-top:8px;font-size:11px;color:var(--sub);font-style:italic;">WE OBSERVE. WE TARGET. WE SCALE.</p>
+  </div>
+</div></div>
+
+</div><!-- end main -->
+
+<script>
+// ── NAV ──
+let cur = 0;
+function showSection(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('sec'+n).classList.add('active');
+  document.querySelectorAll('.nav-item')[n].classList.add('active');
+  cur = n;
+  document.querySelector('.main').scrollTop=0;
+  window.scrollTo(0,0);
+  if(window.innerWidth<=800) closeSidebar();
+  updateScore();
+}
+
+// ── SIDEBAR TOGGLE ──
+function toggleSidebar(){
+  const s=document.getElementById('sidebar');
+  s.classList.toggle('open');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+// ── CHECKBOXES ──
+function toggleCheck(box){
+  box.classList.toggle('checked');
+  box.textContent = box.classList.contains('checked') ? '✓' : '';
+  updateScore();
+}
+
+// ── RATINGS ──
+function setRating(id, val){
+  document.querySelectorAll(`[data-id="${id}"] .star`).forEach((s,i)=>{
+    s.classList.toggle('active', i < val);
+  });
+  updateScore();
+}
+
+// ── SCORING ──
+function updateScore(){
+  const allBoxes = document.querySelectorAll('.ch-box');
+  const checked = document.querySelectorAll('.ch-box.checked').length;
+  const total = allBoxes.length;
+  const pct = total > 0 ? Math.round((checked/total)*100) : 0;
+
+  document.getElementById('totalScore').textContent = pct + '%';
+
+  // Section scores
+  const secs = {foundation:[2,3,4], presence:[5,6,7], external:[8,9,10], performance:[11,12]};
+  ['foundation','presence','external','performance'].forEach(k=>{
+    const secNums = secs[k];
+    let sc=0,tot=0;
+    document.querySelectorAll('.check-item').forEach(item=>{
+      const sec = parseInt(item.dataset.sec);
+      if(secNums.includes(sec)){
+        tot++;
+        if(item.querySelector('.ch-box.checked')) sc++;
+      }
+    });
+    const p = tot>0 ? Math.round((sc/tot)*100) : 0;
+    const el = document.getElementById('s-'+k);
+    if(el) el.textContent = p+'%';
+  });
+
+  // Final score display
+  const fs = document.getElementById('finalScore');
+  const fi = document.getElementById('scoreInterpret');
+  if(fs){ fs.textContent = pct + '%'; }
+  if(fi){
+    if(pct >= 80) fi.innerHTML = '<span style="color:#4caf50">Strong brand.<br>Minor fixes needed.</span>';
+    else if(pct >= 60) fi.innerHTML = 'Decent foundation.<br>Needs polish & strategy.';
+    else if(pct >= 40) fi.innerHTML = '<span style="color:var(--gold)">Major gaps found.<br>Needs full strategy.</span>';
+    else if(pct > 0) fi.innerHTML = '<span style="color:#e57373">Brand needs rebuilding.<br>Strong MURAQBA opportunity.</span>';
+    else fi.textContent = 'Complete the checklist\nitems to calculate.';
+  }
+
+  // Nav done indicators
+  for(let i=0;i<=13;i++){
+    const items = document.querySelectorAll(`.check-item[data-sec="${i}"]`);
+    const checkedItems = document.querySelectorAll(`.check-item[data-sec="${i}"] .ch-box.checked`);
+    const nd = document.getElementById('nd'+i);
+    if(nd && items.length > 0){
+      const done = checkedItems.length === items.length;
+      nd.classList.toggle('complete', done);
+      nd.textContent = done ? '✓' : '';
+    }
+  }
+}
+
+function resetAudit(){
+  if(!confirm('Reset all audit data? This cannot be undone.')) return;
+  document.querySelectorAll('.ch-box').forEach(b=>{ b.classList.remove('checked'); b.textContent=''; });
+  document.querySelectorAll('.star').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.notes-area, .field-input').forEach(f=>f.value='');
+  document.querySelectorAll('table input').forEach(f=>f.value='');
+  updateScore();
+}
+
+updateScore();
+</script>
+</body>
+</html>
